@@ -10,7 +10,7 @@
 #--------------------------------------------------------------
 
 #Ask user for a date, specifying the format
-user_date = '7/3/2003' #input("Enter a date (M/D/YYYY): ")
+user_date = input("Enter a date (M/D/YYYY): ")
 
 #Create a variable pointing to the data file. Use relative paths to current wd rather than abs path
 file_name = './data/raw/sara.txt'
@@ -50,12 +50,17 @@ for lineString in line_list:
         date_dict[record_id] = obs_date # key here is record id bc every line has a unique one, so we can use it to pull out the associated observation date
         location_dict[record_id] = (obs_lat, obs_lon) # same key, with tuple of lat and longitude per record id
 
-    #Initialize key list
-    keys = []
+#Initialize key list for later append. These following commands should run after for loop is completed
+keys = []
 
-    #Loop through items in date_dict
-    for item in date_dict.items(): # the items are key value pairs so we'll pull them out into separate values
-        key = item[0]
-        value = item[1]
-        if value == user_date: # the value in date_dict is the date
-            print(key)
+#Loop through items in date_dict
+for key, value in date_dict.items(): # the items are key value pairs so we'll pull them out into separate values
+    if value == user_date: # the value in date_dict is the date
+        keys.append(key) # add key to list
+
+#Loop through keys and report locations
+for key in keys:
+    location = location_dict[key]
+    lat = location[0]
+    lon = location[1]
+    print(f"On {user_date}, Sara the turtle was seen at {lat} degrees Latitude, {lon} degrees Longitude.")
