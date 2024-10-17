@@ -9,6 +9,9 @@
 # Date:   October 2024
 #--------------------------------------------------------------
 
+#Ask user for a date, specifying the format
+user_date = '7/3/2003' #input("Enter a date (M/D/YYYY): ")
+
 #Create a variable pointing to the data file. Use relative paths to current wd rather than abs path
 file_name = './data/raw/sara.txt'
 
@@ -47,5 +50,12 @@ for lineString in line_list:
         date_dict[record_id] = obs_date # key here is record id bc every line has a unique one, so we can use it to pull out the associated observation date
         location_dict[record_id] = (obs_lat, obs_lon) # same key, with tuple of lat and longitude per record id
 
-    #Print the location of sara
-    #print(f"Record {record_id} indicates Sara was seen at lat:{obs_lat},lon:{obs_lon} on {obs_date}")
+    #Initialize key list
+    keys = []
+
+    #Loop through items in date_dict
+    for item in date_dict.items(): # the items are key value pairs so we'll pull them out into separate values
+        key = item[0]
+        value = item[1]
+        if value == user_date: # the value in date_dict is the date
+            print(key)
