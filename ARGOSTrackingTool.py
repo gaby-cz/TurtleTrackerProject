@@ -15,15 +15,17 @@ file_name = './data/raw/sara.txt'
 #Create a file object from the file. Analog version would be going into finder and double clicking file and opening it.
 file_object = open(file_name,'r')
 
-#Read contents of file into a string. The memory footprint of reading our data one line at a time is smaller.
-lineString = file_object.readline()
+#Read contents of file into a list
+line_list = file_object.readlines()
 
-#Try with a while loop now. Most things under "for" stay the same. Empty string equates to false.
-while lineString:
+#Close the file -- now can't access file object bc it's closed.
+file_object.close()
+
+#Pretend we read one line of data from the file
+for lineString in line_list:
     # Check if line is a data line
     if lineString[0] in ("#","u"):
-            lineString = file_object.readline()
-            continue #essentially, then skip
+        continue #essentially, then skip
 
     #Split the string into a list of data items
     lineData = lineString.split()
@@ -37,6 +39,3 @@ while lineString:
 
     #Print the location of sara
     print(f"Record {record_id} indicates Sara was seen at lat:{obs_lat},lon:{obs_lon} on {obs_date}")
-
-    #Update the variable we're evaluating in the line loop. Read next line.
-    lineString = file_object.readline()
